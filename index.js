@@ -48,11 +48,11 @@ function division(a,b) {
     if (a === 0) {
         clearButton = document.querySelector(".clear");
         clearButton.click();
-        setTimeout(() => {alert("STOP RIGHT THERE CRIMINAL SCUM!");},1000);
-        return 0;
+        setTimeout(() => {alert("STOP RIGHT THERE CRIMINAL SCUM!");},100);
+        return "";
     }
 
-    if (b/a < 1) {
+    if (b/a  !== Math.floor(b/a)) {
         return Math.round(b/a * 100) / 100;
     } else {
         return b/a;
@@ -90,25 +90,26 @@ displayValues = {
 };
 
 display = document.querySelector(".display");
-values = document.querySelectorAll(".buttons > .value");
+values = document.querySelectorAll(".buttons > ul > li > .value");
 values.forEach(value => {
     value.addEventListener("click", function eventHandler(e) {
         if (lastKey.lastKeyPressedWasSign) {
             display.innerHTML = "";
         }
-        e.stopImmediatePropagation();
+        //e.stopPropagation();
         display.innerHTML += value.innerHTML;
         lastKey.lastKeyPressedWasSign = false;
+        
     });
 });
 
-mathSigns = document.querySelectorAll(".buttons > .mathSign");
+mathSigns = document.querySelectorAll(".buttons > ul > li > .mathSign");
 mathSigns.forEach(mathSign => {
     mathSign.addEventListener("click", function eventHandler(e) {
         if (!(lastKey.lastKeyPressedWasSign)) {
             selectOperation(lastKey.lastKeySignPressed);
         }
-        e.stopImmediatePropagation();
+        //e.stopPropagation();
         displayValues.pastDisplayValue = Number(display.innerHTML);
         lastKey.lastKeySignPressed = mathSign.innerHTML;
         lastKey.lastKeyPressedWasSign = true;
@@ -126,7 +127,7 @@ equalButton.addEventListener("click", function eventHandler(e) {
 
 clearButton = document.querySelector(".clear");
 clearButton.addEventListener("click",function eventHandler(e) {
-    display.innerHTML = 0;
+    display.innerHTML = "";
     displayValues.pastDisplayValue = undefined;
     displayValues.currentDisplayValue = undefined;
     lastKey.lastKeyPressedWasSign = false;
@@ -151,14 +152,61 @@ percentageButton.addEventListener("click",function eventHandler(e) {
     display.innerHTML = (Number(display.innerHTML)/100).toString();
 });
 
-//you have 3 things left to do:
+invertButton = document.querySelector(".invert");
+invertButton.addEventListener("click", function eventHandler(e) {
+    if (display.innerHTML.charAt(0) === "-") {
+        display.innerHTML = display.innerHTML.slice(1);
+    } else {
+        display.innerHTML = "-" + display.innerHTML;
+    }
+})
 
-//the invert sign button, pretty simple if 1st digit of display.innerHTML 
-//then display.innerHTML = "-" + himself. Else make a for from index 1 onwards and make it the 
-//new innerHTML to remove the "-"
+backspaceButton = document.querySelector(".backspace");
+backspaceButton.addEventListener("click", function eventHandler(e) {
+    display.innerHTML = display.innerHTML.slice(0,display.innerHTML.length-1);
+})
 
-//The keyboard support, just pick the indexes on google and do an event.keydown, 
-//if equal to 0 key index then click() the 0 button, same thing to all keys
-//the +/- , make a hot key for it and put that on the screen for the user 
+document.body.addEventListener("keydown", function eventHandler(e) {
+    function clicker(keyID,buttonSelector) {
+        if (e.which === keyID) {
+            document.querySelector(buttonSelector).click();
+        }
+    }
+    e.preventDefault();
+    clicker(96,".zero");
+    clicker(97,".one");
+    clicker(98,".two");
+    clicker(99,".three");
+    clicker(100,".four");
+    clicker(101,".five");
+    clicker(102,".six");
+    clicker(103,".seven");
+    clicker(104,".eight");
+    clicker(105,".nine");
+    clicker(107,".plus");
+    clicker(109,".minus");
+    clicker(106,".times");
+    clicker(111,".divided");
+    clicker(187,".equal");
+    clicker(190,".dot");
+    clicker(80,".percentage");
+    clicker(9,".invert");
+    clicker(8,".backspace");
+    clicker(46,".clear");
 
-//Amogus theme... you figure out, i hope XD
+
+});
+function checkForLongDisplayValue(eventName) {
+    document.body.addEventListener(eventName, function eventHandler(e) {
+        if (display.innerHTML.length > 8) {
+            clearButton = document.querySelector(".clear");
+            clearButton.click();
+            setTimeout(() => {alert("NUMBER TOO BIG, MAX 8 DIGITS!");},100);
+        }
+    })    
+}
+checkForLongDisplayValue("click");
+checkForLongDisplayValue("keydown");
+
+
+//You have to change the background for something legal XDDDD

@@ -1,5 +1,129 @@
+/*variables*/
+:root {
+    --teste: 450px;
+}
+
+/* setup*/
+body {
+    background-image: url(images/spaceBackground.gif);
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    /*this 4 lines are the setup to make an fullscreen background*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+/*O tamanho da picture do amogus empurra a página, mesmo ele seja pequeno*/
+
+ul {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button {
+    border: none;
+    background: none;
+}
+
+/* scene */
+.scene {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.scene .jerma {
+    opacity: 0.2;
+    width: 1100px;
+    height: 600px;
+    rotate: -15deg;
+    position: absolute;
+    top: -150px;
+    left: -400px;
+    z-index: -2;
+}
+
+.scene .hand {
+    transform: scaleX(-1); /* inverts the image */
+    opacity: 0.3;
+    position: absolute;
+    top: -10px;
+    left: 200px;
+    height: 600px;
+    width: 500px;
+    z-index: -1; /*The lower the number, the lower the layer*/
+}
+
+.scene .sus_ass {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    transform: scaleX(-1);
+    height: 300px;
+    width: 500px;
+    opacity: 0.2;
+}
+
+.scene .calculator {
+    position: absolute;
+    display: flex;
+    width: 300px;
+    height: 450px;
+    top: 150px;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.scene .calculator .amogus {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    filter: brightness(0.4);
+    z-index: -1;
+}
+
 .display {
-    width: 600px;
-    height: 15px;
+    width: 250px;
+    height: 100px;
     border: 5px solid black;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 60px;
+}
+
+.scene .calculator .buttons ul {
+    position: absolute;
+    top: 36%;
+    left: 29%;
+    height: 100px;
+    width: 120px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.scene .calculator .buttons ul li {
+    background-color: antiquewhite;
+    border-radius: 10px;
+    font-size: large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    margin: 0;
 }
